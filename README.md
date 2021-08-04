@@ -33,7 +33,7 @@ pip3 install pyinstaller
 - Then use:
 
 ```
-pyinstaller --onefile main.py
+pyinstaller --onefile main.py -n pomodoro-cli
 ```
 
 ## How to run
@@ -48,7 +48,7 @@ python3 main.py
 - Binary option:
 
 ```
-pyinstaller --onefile main.py
+pyinstaller --onefile main.py -n pomodoro-cli
 cd dist
-./main
+./pomodoro-cli
 ```
