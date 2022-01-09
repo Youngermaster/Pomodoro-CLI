@@ -1,11 +1,24 @@
-import time
+import configparser
+import os
 import sys
+import time
 from playsound import playsound
 
-tone_path = './Assets/Audio/OnePieceGoldBellSoundEffect.mp3'
+config = configparser.ConfigParser()
 
+# Default values
+tone_path = f'{os.getcwd}/Assets/Audio/OnePieceGoldBellSoundEffect.mp3'
 work_timer_minutes = 25
 rest_timer_minutes = 5
+
+
+def get_config() -> str:
+    try:
+        config.read('config.ini')
+        tone_path = config['INSTALLATION']['PATH']
+    except:
+        tone_path = f'{os.getcwd}/Assets/Audio/OnePieceGoldBellSoundEffect.mp3'
+    return tone_path
 
 
 def timer_countdown(minutes, type):
@@ -68,12 +81,12 @@ def print_license():
         LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
         OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
         SOFTWARE.
-
         """
     )
 
 
 if __name__ == "__main__":
+    tone_path = get_config()
     while True:
         print_menu()
         user_option = int(input())

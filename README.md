@@ -2,32 +2,26 @@
 
 This is a pomodoro CLI to be more productive.
 
-## Requirementes
+## How to build for your OS
 
-Install `Python 3`, and then install the `playsound` library:
+- Make sure to install `Python 3`, then run the following commands:
 
-```
-pip install playsound
-```
+### Windows
 
-or
-
-```
-pip3 install playsound
-```
-
-## How to build
-
-- Make sure to install `pyinstaller`:
-
-```
+```powershell
+python -m venv pomodoro-env
+pomodoro-env\Scripts\activate.bat
 pip install pyinstaller
 ```
 
-or 
+### Linux
 
-```
-pip3 install pyinstaller
+```shell
+python3 -m venv pomodoro-env
+source pomodoro-env/bin/activate
+pip3 install -r requirements.txt
+chmod +x ./linux_installation.sh
+sudo ./linux_installation.sh
 ```
 
 - Then use:
