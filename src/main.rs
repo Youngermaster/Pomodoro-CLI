@@ -30,21 +30,20 @@ fn change_time_values(working_time: &mut i32, resting_time: &mut i32) {
 
 fn print_menu() {
     println!(
-        "
-        |================================================================|
-        |                         CLI Pomodoro                           |
-        |================================================================|
-        |                                                                |
-        | Select an option:                                              |
-        |                                                                |
-        | 1. Start pomodoro                                              |
-        | 2. Change time values                                          |
-        | 3. LICENSE                                                     |
-        | 4. Quit                                                        |
-        |                                                                |
-        |================================================================|
-
-        "
+    "
+    |=========================|
+    |       Pomodoro CLI      |
+    |=========================|
+    |                         |
+    | Select an option:       |
+    |                         |
+    | 1. Start pomodoro       |
+    | 2. Change time values   |
+    | 3. LICENSE              |
+    | 4. Quit                 |
+    |                         |
+    |=========================|
+    "
     );
 }
 
@@ -53,7 +52,7 @@ fn print_license() {
         "
         MIT License
 
-        Copyright (c) 2021 Juan Manuel Young Hoyos
+        Copyright (c) 2222 Juan Manuel Young Hoyos
 
         Permission is hereby granted, free of charge, to any person obtaining a copy
         of this software and associated documentation files (the \"Software\"), to deal
