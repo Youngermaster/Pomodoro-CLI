@@ -1,26 +1,36 @@
+use std::io;
+
 fn main() {
     println!("Hello, world!");
     let mut work_time = 25;
     let mut rest_time = 25;
     loop {
         print_menu();
-        print!("Select an option: ");
+        println!("Select an option:");
         let line = get_integer();
         match line {
             1 => println!("One"),
-            2 => change_time_values(&mut work_time, &mut rest_time),
+            2 => {
+                change_time_values(&mut work_time, &mut rest_time);
+                println!("W {}, R {}", work_time, rest_time);
+            }
             3 => print_license(),
             4 => break,
-            _ => println!("Ain't special"),
+            _ => println!("Please, select an available option"),
         }
     }
 }
 
-fn get_integer() -> i64 {
+fn get_integer() -> i32 {
     let mut buffer = String::new();
-    std::io::stdin().read_line(&mut buffer).expect("Failed");
-    let n = buffer.trim().parse::<i64>().unwrap();
-    n
+    io::stdin().read_line(&mut buffer).expect("Failed");
+    return match buffer.trim().parse::<i32>() {
+        Ok(num) => num,
+        Err(_) => {
+            println!("Please, type a number");
+            0
+        }
+    };
 }
 
 fn change_time_values(working_time: &mut i32, resting_time: &mut i32) {
@@ -30,7 +40,7 @@ fn change_time_values(working_time: &mut i32, resting_time: &mut i32) {
 
 fn print_menu() {
     println!(
-    "
+        "
     |=========================|
     |       Pomodoro CLI      |
     |=========================|
