@@ -1,26 +1,33 @@
 fn main() {
     println!("Hello, world!");
+    let mut work_time = 25;
+    let mut rest_time = 25;
     loop {
         print_menu();
-        let mut line = String::new();
-        println!("Enter your name :");
-        let b1 = std::io::stdin().read_line(&mut line).unwrap();
-        println!("Hello , {}", line);
-        println!("no of bytes read , {}", b1);
+        print!("Select an option: ");
+        let line = get_integer();
         match line {
-            "1" => println!("One"),
+            1 => println!("One"),
+            2 => change_time_values(&mut work_time, &mut rest_time),
+            3 => print_license(),
+            4 => break,
             _ => println!("Ain't special"),
         }
     }
 }
 
-fn get_input() -> String {
+fn get_integer() -> i64 {
     let mut buffer = String::new();
     std::io::stdin().read_line(&mut buffer).expect("Failed");
-    buffer
+    let n = buffer.trim().parse::<i64>().unwrap();
+    n
 }
 
-let n = get_input().trim().parse::<i64>().unwrap();
+fn change_time_values(working_time: &mut i32, resting_time: &mut i32) {
+    *working_time = 1;
+    *resting_time = 1;
+}
+
 fn print_menu() {
     println!(
         "
@@ -32,8 +39,8 @@ fn print_menu() {
         |                                                                |
         | 1. Start pomodoro                                              |
         | 2. Change time values                                          |
-        | 3. Quit                                                        |
-        | 4. LICENSE                                                     |
+        | 3. LICENSE                                                     |
+        | 4. Quit                                                        |
         |                                                                |
         |================================================================|
 
