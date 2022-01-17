@@ -1,0 +1,1 @@
+sudo pacman -Syu libx11 pkgconf alsa-lib pulseaudio-alsa
