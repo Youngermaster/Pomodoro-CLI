@@ -1,3 +1,7 @@
+use rodio::{source::Source, Decoder, OutputStream};
+use std::fs::File;
+// use soloud::*;
+
 use std::{
     io::{self, stdout, Write},
     thread::sleep,
@@ -7,23 +11,19 @@ use std::{
 fn main() {
     println!("Hello, world!");
     let mut work_time = 25;
-    let mut rest_time = 25;
+    let mut rest_time = 5;
     loop {
         print_menu();
         println!("Select an option:");
         let line = get_integer();
         match line {
             1 => {
-                println!("One");
-                let mut stdout = stdout();
-                for i in 0..100 {
-                    print!("\rProcessing {}%...", i);
-                    // or
-                    // stdout.write(format!("\rProcessing {}%...", i).as_bytes()).unwrap();
-
-                    stdout.flush().unwrap();
-                    sleep(Duration::from_millis(20));
-                }
+                println!("Let's work!");
+                start_pomodoro_stage(&work_time);
+                play_alarm();
+                println!("Let's rest a bit");
+                start_pomodoro_stage(&rest_time);
+                play_alarm();
             }
             2 => {
                 change_time_values(&mut work_time, &mut rest_time);
@@ -36,21 +36,62 @@ fn main() {
     }
 }
 
-fn get_integer() -> i8 {
+fn get_integer() -> u32 {
     let mut buffer = String::new();
     io::stdin().read_line(&mut buffer).expect("Failed");
-    return match buffer.trim().parse::<i8>() {
+    return match buffer.trim().parse::<u32>() {
         Ok(num) => num,
         Err(_) => {
-            println!("Please, type a number");
+            println!("Please, type a valid number");
             0
         }
     };
 }
 
-fn change_time_values(working_time: &mut i8, resting_time: &mut i8) {
-    *working_time = 1;
-    *resting_time = 1;
+fn start_pomodoro_stage(time: &u32) {
+    let time_on_seconds = time * 60;
+    let mut stdout = stdout();
+    for i in (0..=time_on_seconds).rev() {
+        print!("\r{} seconds remaining...", i);
+        stdout.flush().unwrap();
+        sleep(Duration::from_secs(1));
+    }
+}
+
+fn play_alarm() {
+    // Get a output stream handle to the default physical sound device
+    let (_stream, stream_handle) = OutputStream::try_default().unwrap();
+    // Load a sound from a file, using a path relative to Cargo.toml
+    let file = io::BufReader::new(File::open("Audio/OnePieceGoldBellSoundEffect.mp3").unwrap());
+    // Decode that sound file into a source
+    let source = Decoder::new(file).unwrap();
+    // Play the sound directly on the device
+    stream_handle.play_raw(source.convert_samples()).unwrap();
+    // The sound plays in a separate audio thread,
+    // so we need to keep the main thread alive while it's playing.
+    std::thread::sleep(std::time::Duration::from_secs(5));
+    // let mut sl = Soloud::default()?;
+
+    // let mut wav = audio::Wav::default();
+
+    // wav.load(&std::path::Path::new(
+    //     "Audio/OnePieceGoldBellSoundEffect.mp3",
+    // ))?;
+
+    // sl.play(&wav);
+    // while sl.voice_count() > 0 {
+    //     std::thread::sleep(std::time::Duration::from_millis(100));
+    // }
+
+    // Ok(())
+}
+
+fn change_time_values(working_time: &mut u32, resting_time: &mut u32) {
+    println!("Type the minutes you want to work with:");
+    *working_time = get_integer();
+    println!("Type the minutes you want to rest:");
+    *resting_time = get_integer();
+    println!("Values changed succesfully!");
 }
 
 fn print_menu() {
