@@ -25,10 +25,7 @@ fn main() {
                 start_pomodoro_stage(&rest_time);
                 play_alarm();
             }
-            2 => {
-                change_time_values(&mut work_time, &mut rest_time);
-                println!("W {}, R {}", work_time, rest_time);
-            }
+            2 => change_time_values(&mut work_time, &mut rest_time),
             3 => print_license(),
             4 => break,
             _ => println!("Please, select an available option"),
@@ -79,7 +76,7 @@ fn change_time_values(working_time: &mut u32, resting_time: &mut u32) {
     *working_time = get_integer();
     println!("Type the minutes you want to rest:");
     *resting_time = get_integer();
-    println!("Values changed succesfully!");
+    println!("Values changed successfully!");
 }
 
 fn print_menu() {
