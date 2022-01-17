@@ -1,4 +1,8 @@
-use std::io;
+use std::{
+    io::{self, stdout, Write},
+    thread::sleep,
+    time::Duration,
+};
 
 fn main() {
     println!("Hello, world!");
@@ -9,7 +13,18 @@ fn main() {
         println!("Select an option:");
         let line = get_integer();
         match line {
-            1 => println!("One"),
+            1 => {
+                println!("One");
+                let mut stdout = stdout();
+                for i in 0..100 {
+                    print!("\rProcessing {}%...", i);
+                    // or
+                    // stdout.write(format!("\rProcessing {}%...", i).as_bytes()).unwrap();
+
+                    stdout.flush().unwrap();
+                    sleep(Duration::from_millis(20));
+                }
+            }
             2 => {
                 change_time_values(&mut work_time, &mut rest_time);
                 println!("W {}, R {}", work_time, rest_time);
@@ -21,10 +36,10 @@ fn main() {
     }
 }
 
-fn get_integer() -> i32 {
+fn get_integer() -> i8 {
     let mut buffer = String::new();
     io::stdin().read_line(&mut buffer).expect("Failed");
-    return match buffer.trim().parse::<i32>() {
+    return match buffer.trim().parse::<i8>() {
         Ok(num) => num,
         Err(_) => {
             println!("Please, type a number");
@@ -33,7 +48,7 @@ fn get_integer() -> i32 {
     };
 }
 
-fn change_time_values(working_time: &mut i32, resting_time: &mut i32) {
+fn change_time_values(working_time: &mut i8, resting_time: &mut i8) {
     *working_time = 1;
     *resting_time = 1;
 }
