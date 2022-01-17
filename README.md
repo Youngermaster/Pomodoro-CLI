@@ -15,3 +15,11 @@ cargo build
 # Or
 cargo build --release
 ```
+
+## TODO:
+
+- [ ] Add installation support.
+  - [ ] Windows.
+  - [ ] Linux.
+  - [ ] MacOS.
+- [ ] Add project *"modularity"*.
