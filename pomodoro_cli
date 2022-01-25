@@ -1,0 +1,2 @@
+#!/bin/bash
+/usr/share/pomodoro-cli/pomodoro_cli /usr/share/pomodoro-cli/Audio/OnePieceGoldBellSoundEffect.mp3
