@@ -16,6 +16,9 @@ cargo build
 cargo build --release
 ```
 
+## Note:
+Make sure to install `pulseaudio-alsa`.
+
 ## TODO:
 
 - [ ] Add installation support.

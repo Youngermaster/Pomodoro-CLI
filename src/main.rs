@@ -6,10 +6,14 @@ use std::{
     io::{self, stdout, Write},
     thread::sleep,
     time::Duration,
+    env,
 };
 
 fn main() {
-    println!("Hello, world!");
+    let args: Vec<String> = env::args().collect();
+
+    let alarm_location = &args[1];
+
     let mut work_time = 25;
     let mut rest_time = 5;
     loop {
@@ -20,10 +24,10 @@ fn main() {
             1 => {
                 println!("Let's work!");
                 start_pomodoro_stage(&work_time);
-                play_alarm();
+                play_alarm(alarm_location);
                 println!("Let's rest a bit");
                 start_pomodoro_stage(&rest_time);
-                play_alarm();
+                play_alarm(alarm_location);
             }
             2 => change_time_values(&mut work_time, &mut rest_time),
             3 => print_license(),
@@ -57,11 +61,11 @@ fn start_pomodoro_stage(time: &u32) {
     println!("");
 }
 
-fn play_alarm() {
+fn play_alarm(file_location: &str) {
     // Get a output stream handle to the default physical sound device
     let (_stream, stream_handle) = OutputStream::try_default().unwrap();
     // Load a sound from a file, using a path relative to Cargo.toml
-    let file = io::BufReader::new(File::open("Audio/OnePieceGoldBellSoundEffect.mp3").unwrap());
+    let file = io::BufReader::new(File::open(file_location).unwrap());
     // Decode that sound file into a source
     let source = Decoder::new(file).unwrap();
     // Play the sound directly on the device
