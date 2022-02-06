@@ -19,6 +19,13 @@ cargo build --release
 ## Note:
 Make sure to install `pulseaudio-alsa`.
 
+## Troubleshooting
+If ALSA mixer doesn't work, try this command as `sudo`:
+
+```
+echo "options snd-hda-intel index=1" > /etc/modprobe.d/alsa.conf
+```
+
 ## TODO:
 
 - [ ] Add installation support.
