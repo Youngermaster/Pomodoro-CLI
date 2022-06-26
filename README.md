@@ -17,7 +17,7 @@ cargo build --release
 ```
 
 ## Note:
-Make sure to install `pulseaudio-alsa`.
+Make sure to install `pulseaudio-alsa` or `libasound2-dev`.
 
 ## Troubleshooting
 If ALSA mixer doesn't work, try this command as `sudo`:
